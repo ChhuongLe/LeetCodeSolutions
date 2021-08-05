@@ -38,5 +38,5 @@
 </ul>
 
 <p><strong>Whiteboard</strong></p>
-<img alt="" src="container-with-most-water/whiteboard.png">
+<img alt="" src="./whiteboard.png">
 </div>
