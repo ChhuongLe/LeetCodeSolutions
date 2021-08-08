@@ -32,6 +32,5 @@
 	<li><code>1 &lt;= nums[i] &lt;= 10^4</code></li>
 </ul>
 </div>
-<p>
-	<img alt="" src="./whiteboard">
-</p>
+<p>Whiteboard</p>
+<img alt="" src= ./whiteboard.png>
