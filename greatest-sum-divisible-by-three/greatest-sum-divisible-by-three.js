@@ -22,9 +22,6 @@ var maxSumDivThree = function(nums) {
        }
     }
 
-    console.log(n1);
-    console.log(n2);
-
     if(total%3 === 1) {
         total = total - n1;
     } else if (total%3 === 2) {
