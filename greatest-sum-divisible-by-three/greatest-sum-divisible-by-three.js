@@ -14,7 +14,7 @@ var maxSumDivThree = function(nums) {
        if(currNum%3 === 1) {
            n2 = Math.min(n2, n1+currNum);
            n1 = Math.min(n1, currNum);
-       } 
+       }
 
        if(currNum%3 === 2) {
            n1 = Math.min(n1, n2+currNum);
@@ -26,7 +26,7 @@ var maxSumDivThree = function(nums) {
         total = total - n1;
     } else if (total%3 === 2) {
       total = total - n2;
-    } 
-    
+    }
+
     return total;
 };
