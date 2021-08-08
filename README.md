@@ -1,2 +1,2 @@
 # LeetCodeSolutions
-Solutions that I developed on LeetCode
+Solutions that I developed while doing leetcode problems
