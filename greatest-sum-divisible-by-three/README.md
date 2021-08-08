@@ -33,4 +33,4 @@
 </ul>
 </div>
 <p>Whiteboard</p>
-<img alt="" src= ./whiteboard.png>
+<img alt="" src= ./whiteboard.PNG>
