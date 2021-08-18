@@ -10,7 +10,7 @@
     edge cases: none
 */ 
 
-// using dynamic programming
+// using dynamic programming (bottom up approach)
 var climbStairs = function(n) {
     // initialize array
     // will store subproblems
