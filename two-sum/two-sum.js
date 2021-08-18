@@ -3,23 +3,28 @@
  * @param {number} target
  * @return {number[]}
  */
-// hash table approach
+
+// Return the INDICIES of the numbers that add to target
+// Assume there's only one solution
+// Cannot use the same element twice 
+
+/* IOCE: 
+    Input: array of numbers and and integer
+    Output: array of numbers
+    Constraints: Only ONE valid answer
+    Edge Cases: NONE
+*/
+
 var twoSum = function(nums, target) {
-    // set variable called numObj to be an empty hash table
-    let numObj = {};
-    // iterate through the nums array
-    for (let i = 0; i < nums.length; i++){
-        // set the key to equal the number in the array
-        let thisNum = nums[i];
-        // set the value to be the index in the nums array
-        numObj[thisNum] = i;
-    }
-    // Now iterate through the nums array and compare the difference to the hash map
+    let result = [];
+    
     for (let i = 0; i < nums.length; i++) {
-        let diff = target - nums[i];
-        // if the difference exsists inside the hash map, return it
-        if(numObj.hasOwnProperty(diff) && i !== numObj[diff]) {
-            return [i, numObj[diff]];
+        let leftNum = nums[i];
+        for (let j = i+1; j < nums.length; j++) {
+            let rightNum = nums[j];
+            if(leftNum + rightNum === target) {
+                return [i,j];
+            }
         }
     }
 };
