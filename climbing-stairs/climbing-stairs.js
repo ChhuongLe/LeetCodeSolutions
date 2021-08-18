@@ -20,6 +20,7 @@ var climbStairs = function(n) {
     // how many ways to climb 1 steps, 1
     result[1] = 1;
     for (let i = 2; i <= n; i++) {
+        // utilizes previous results to get next result
         result[i] = result[i -1] + result[i-2];
     }
     return result[n];
