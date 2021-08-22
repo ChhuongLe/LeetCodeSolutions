@@ -20,8 +20,8 @@
                         (everything to the left of 4 is 2*3*1 = 6)
                         
     iterate right to left of nums
-    right = [24, 12, 4, 1] (everything to the right of 4 is nothing so                                 default to 1)
-                            (and everyhting to the right of 1 is 2*3*4 =                                24)
+    right = [24, 12, 4, 1] (everything to the right of 4 is nothing so default to 1)
+                           (and everyhting to the right of 1 is 2*3*4 = 24)
     
     now if we multiple left[i] * right[i] 
     ans = [24, 12, 4, 6] which is what we want
