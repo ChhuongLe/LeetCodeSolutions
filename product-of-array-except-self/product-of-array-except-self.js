@@ -10,7 +10,7 @@
     edge cases: numbers must be 32-bit ints only
 */
 
-/* example approach:
+/* example approach: O(n) solution
     nums = [1, 2, 3, 4] 
     ans output should be [24, 12, 8, 6]
     
