@@ -46,6 +46,7 @@ var isValidBST = function(root) {
         // check right subtree after all left items haven been traversed through
         let rightSubTree = inOrder(root.right);
         
+        // once all has been checked, return the result
         return leftSubTree && rightSubTree;
     }
     
