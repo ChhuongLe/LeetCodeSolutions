@@ -12,6 +12,7 @@
 
 /* can use dynamic programming to update max length */
 
+// O(n^2) solution
 var lengthOfLIS = function(nums) {
     // set up dyanmic array filled with 1's 
     // going to perform a max comparison array
