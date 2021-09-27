@@ -3,29 +3,23 @@
  * @param {number} n
  * @return {number}
  */
-
-/* IOCE: 
-    Input: integers (m and n) m = number of rows, n = number of columns
-    Output: integer; represents number of unique paths the robot can take to reach the bottom right corner
-    Constraints: 1 <= m and n <= 100
-    Edge Cases: n can be less than 1? 
-*/
 var uniquePaths = function(m, n) {
-    // if either of the columns or rows is equal to 1
-    if (n === 1 || m === 1) {
-        // return 1 right away as there will be only 1 unique path
+    // if either row or column is of lenght 1
+    if (m === 1 || n === 1) {
+        // return 1 as there will only be on unique path
         return 1;
-    } 
-    // set up variable for dynamic programming
+    }
+    // initialize the dynamic array and make it of size m x n
+    // fill it with 1's
     const dp = Array(m).fill(Array(n).fill(1));
     
-    // iterate through the matrix
-    for(let i = 1; i < m; i++) {
+    // iterate through the matrix starting at 1,1 of the matrix
+    for (let i = 1; i < m; i++) {
         for (let j = 1; j < n; j++) {
-            // for each cell, add to the dynamic array
-            dp[i][j] = dp[i-1][j]+dp[i][j-1];
+            // add the cells
+            dp[i][j] = dp[i-1][j] + dp[i][j-1];
         }
     }
-    // return the number of paths
+    // return the last element
     return dp[m-1][n-1];
 };
