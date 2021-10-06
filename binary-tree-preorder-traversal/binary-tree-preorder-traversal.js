@@ -22,7 +22,7 @@
 const preorderTraversal = (root, result=[]) => {
     // check if root is empty
     if (!root) {
-        // if it is, return the current stack
+        // if it is, return an empty array
         return [];
     }
     result.push(root.val);
