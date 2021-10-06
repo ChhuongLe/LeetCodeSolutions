@@ -30,6 +30,7 @@ const preorderTraversal = (root, result=[]) => {
     if (root.left) {
         preorderTraversal(root.left, result);   
     }
+    // if the left subtree is null, traverse through the right subtree
     if (root.right) {
       preorderTraversal(root.right, result);
     }
