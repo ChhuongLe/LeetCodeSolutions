@@ -22,8 +22,8 @@
 const preorderTraversal = (root, result=[]) => {
     // check if root is empty
     if (!root) {
-        // if it is, return an empty array
-        return [];
+        // if it is, return the current result
+        return result;
     }
     result.push(root.val);
     // otherwise, traverse through the binary tree starting from the left subtree
