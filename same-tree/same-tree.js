@@ -25,6 +25,7 @@ const isSameTree = (p, q) => {
     if (!p && !q) {
         return true;
     }
+    // if only one of them is null and the other is not, return false
     if (!p || !q) {
         return false;
     }
