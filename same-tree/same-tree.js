@@ -30,5 +30,5 @@ const isSameTree = (p, q) => {
         return false;
     }
     // otherwise, check if their subtree values are equal and in the same area
-    return (isSameTree(p.right, q.right) && isSameTree(p.left, q.left) && p.val === q.val);
+    return (p.val === q.val && isSameTree(p.right, q.right) && isSameTree(p.left, q.left));
 };
