@@ -4,26 +4,28 @@
  * @return {number[]}
  */
 
-// Return the INDICIES of the numbers that add to target
-// Assume there's only one solution
-// Cannot use the same element twice 
-
 /* IOCE: 
-    Input: array of numbers and and integer
-    Output: array of numbers
-    Constraints: Only ONE valid answer
-    Edge Cases: NONE
+    Input: nums   -> array
+           target -> integer
+    Output: array
+    Contraints: assume each input has exactly ONE solution
+    Edge Cases: None
+    
+    Example: Input: nums = [2,3,4,5], target = 7
+             Output: [0,3] because nums[0] + nums[3] === 7
 */
 
 var twoSum = function(nums, target) {
     let result = [];
-    
-    for (let i = 0; i < nums.length; i++) {
-        let leftNum = nums[i];
-        for (let j = i+1; j < nums.length; j++) {
-            let rightNum = nums[j];
-            if(leftNum + rightNum === target) {
-                return [i,j];
+    for(let i = 0; i < nums.length; i++) {
+        for(let j = i; j < nums.length; j++) {
+            if (i === j) {
+                continue;
+            }
+            if (nums[i] + nums[j] === target) {
+                result.push(i);
+                result.push(j);
+                return result;
             }
         }
     }
