@@ -10,26 +10,24 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-
-/*
-    IOCE:
-        Input: Root of a tree
-        Output: Array of integers
-        Constraints: None
-        Edge Cases: None
-*/
 var inorderTraversal = function(root) {
+    // initialize an array for the integers to be stored into
     let res = [];
-    traverse(root);
-    return res;
-    
-    function traverse(node) {
-        if (node === null) {
+    // helper function for the traversal
+    const traverse = (node) => {
+        // if the node is null, return 
+        if (node === null){
             return;
         }
+        // otherwise, search all the way left
         traverse(node.left);
+        // add integer into the array
         res.push(node.val);
+        // search right
         traverse(node.right);
     }
+    // return the array at the end of the traversal
+    
+    traverse(root);
+    return res;
 };
-
