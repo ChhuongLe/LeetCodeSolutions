@@ -3,26 +3,26 @@
  * @return {number[][]}
  */
 var allPathsSourceTarget = function(graph) {
-    // initialize a variable to store the resulting paths
+    // initialize a result array to return
     let res = [];
-    // always start at 0 in the graph
-    let queue = [[0]];
-    // start pulling from the queue
+    // initialize a queue with starting point at 0
+    let queue =[[0]];
+    // iterate through the graph and valid paths 
     while(queue.length > 0) {
+        // pop the first element from the queue and store it into curr
         let curr = queue.shift();
-        // set up a variable to hold the last element in the path
+        // store the last element in curr to be used to compare if the result has been achieved
         let last = curr[curr.length-1];
-        // set up a detection to see if the last element in the path is the goal node
+        // check if the goal has been achieved 
         if (last === graph.length-1) {
             res.push(curr);
             continue;
         }
-        // if there are more paths, create new arrays 
+        // otherwise continue the search
         for(let i = 0; i < graph[last].length; i++) {
             let newArr = new Array(...curr, graph[last][i]);
             queue.push(newArr);
         }
     }
-    // return the result in the end
     return res;
 };
