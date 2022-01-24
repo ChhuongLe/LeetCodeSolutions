@@ -24,8 +24,9 @@ var twoSum = function(nums, target) {
     for(let i = 0; i < nums.length; i++) {
         // find the difference between target and the current number being viewed
         let diff = target-nums[i];
-        // find if the difference is in the object 
+        // find if the difference is located in the object and if the current number is unique 
         if(numObj.hasOwnProperty(diff) && i !== numObj[diff]) {
+            // if it is, return the 2 numbers that sum up to it
             return [i, numObj[diff]];
         }
     }
