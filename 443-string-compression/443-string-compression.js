@@ -2,24 +2,37 @@
  * @param {character[]} chars
  * @return {number}
  */
+
+/*
+    IOCE:
+        Input: chars - array of strings
+        output: result - array of strings
+        Constraints: chars will always be valid
+                     chars will never be empty
+        Edge Cases: none to consider
+        
+*/
 var compress = function(chars) {
-  if (!chars.length) return 0;
-  let j = 0;
-  let cur = chars[0];
-  let counter = 0;
-  for (let i = 0; i <= chars.length; i++) {
-    if (chars[i] === cur) {
-      counter++;
-    } else {
-      chars[j] = cur;
-      if (counter > 1) {
-        const s = counter.toString();
-        for (let k = 0; k < s.length; k++) chars[++j] = s[k];
-      }
-      j++;
-      cur = chars[i];
-      counter = 1;
+    let count = 0;
+    let currChar = chars[0];
+    let j = 0;
+    // iterate through the chars array
+    for(let i = 0; i <= chars.length; i++) {
+        // if the current char is equal the char being looked at, update the current count
+        if(currChar === chars[i]){
+            count++;
+        } else {
+            chars[j] = currChar;
+            if (count > 1) {
+                let numString = count.toString();
+                for(let k = 0; k < numString.length; k++){
+                    chars[++j] = numString[k];
+                }
+            }
+            j++;
+            currChar = chars[i];
+            count=1;
+        }
     }
-  }
-  return j;
+    return j;
 };
