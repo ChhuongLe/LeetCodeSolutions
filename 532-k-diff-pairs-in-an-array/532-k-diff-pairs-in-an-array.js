@@ -56,6 +56,5 @@ var findPairs = function(nums, k) {
         }
     }
     // return the number of keys in the hash
-    console.log(hash);
     return Object.keys(hash).length;
 };
