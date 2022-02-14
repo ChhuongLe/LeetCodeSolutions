@@ -2,27 +2,34 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
+/*
+IOCE: 
+
+    Input: nums - array of integers
+    Output: result - array of subsets
+    Constraints: subsets must be unique
+    Edge Cases: 
+*/
+
+// back tracking algorithm
 var subsets = function(nums) {
-    let result = [[]];
+    let res = [];
+    let subset = [];
     
-    function backtrack(first, current) {
-    // we iterate over the indexes i from 'first' to the length
-    //of the entire sequence 'nums'
-    for (let i = first; i < nums.length; i++) {
-        current.push(nums[i]);
-
-        // use distructure operator to clone 'current' value and save to 'result'
-        result.push([...current]);
-
-        // generate all other subsets for the current subset.
-        // increasing the position by one to avoid duplicates in 'result'
-        backtrack(i + 1, current);
-
-        // BACKTRACK.
-        current.pop();
+    // perform a dfs on the nums array using i as an index
+    const dfs = (i) => {
+        if(i >= nums.length){
+            res.push([...subset]);
+            return;
+        }
+        // decision to include nums[i]
+        subset.push(nums[i]);
+        dfs(i+1);
+        
+        // decision to skip nums[i]
+        subset.pop();
+        dfs(i+1);
     }
-}
-    
-    backtrack(0, []);
-    return result
+    dfs(0);
+    return res;
 };
