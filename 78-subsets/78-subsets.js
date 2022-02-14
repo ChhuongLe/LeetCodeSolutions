@@ -7,22 +7,26 @@ IOCE:
 
     Input: nums - array of integers
     Output: result - array of subsets
-    Constraints: subsets must be unique
-    Edge Cases: 
+    Constraints: subsets must be unique [2,3] is the same as [3,2]
+    Edge Cases: None to consider at the moment
 */
 
 // back tracking algorithm
 var subsets = function(nums) {
     let res = [];
+    // initialize an array to have global access to it
     let subset = [];
     
-    // perform a dfs on the nums array using i as an index
+    // perform a dfs on the nums array using i as the index of the current element
     const dfs = (i) => {
+        // base case if i is out of bounds
         if(i >= nums.length){
+            // subset will be modified, so we push to result
             res.push([...subset]);
             return;
         }
-        // decision to include nums[i]
+        // perform the back tracking algo
+        // decision to include nums[i] 
         subset.push(nums[i]);
         dfs(i+1);
         
