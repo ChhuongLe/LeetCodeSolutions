@@ -4,7 +4,7 @@
  * @return {number[]}
  */
 var findAnagrams = function(s, p) {
-    // initialize an utput array
+    // initialize an output array
     let output = [];
     // initalize a hash to count the number of occurances that the letters to appear
     let hash = {};
