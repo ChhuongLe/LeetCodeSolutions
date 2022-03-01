@@ -19,7 +19,7 @@ var mergeTrees = function(root1, root2) {
     }
     else if(root2 === null){
         return root1;
-    } else { // if both nodes exsist, add them together
+    } else { // if both nodes exist, add them together
         root1.val += root2.val;
     }
        
