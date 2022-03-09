@@ -28,7 +28,6 @@
         after the duplicates 
 */
 var deleteDuplicates = function(head) {
-    // To make this easier, create a clone
     let curr = head, prev = null;
     
     // iterate through the list while curr and curr.next are not null
