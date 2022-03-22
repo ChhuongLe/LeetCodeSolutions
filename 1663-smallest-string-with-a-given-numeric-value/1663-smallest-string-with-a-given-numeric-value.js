@@ -75,14 +75,7 @@ var getSmallestString = function(n, k) {
     }
     // tmp should have all the values that are associated with the letters in letterHash
     // convert them using a loop and push them into res
-    Object.prototype.getKey = function (value){
-        for(let key in this){
-            if(this[key] === value){
-                return key;
-            }
-        }
-        return null;
-    }
+    
     // since Javascript does not have a built in way to get values using keys we have to write an iterative function
     Object.prototype.getValue = function(value) {
         for(let key in this){
