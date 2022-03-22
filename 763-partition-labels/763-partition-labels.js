@@ -2,38 +2,53 @@
  * @param {string} s
  * @return {number[]}
  */
+/*
+    IOCE:
+        Input: s - string
+        Output: res - array of integers (integers represent the length of the string)
+        Constraints: s will always be of greater length than 0 
+        Edge Cases: None to consider
+*/ 
+
+/*
+    Use a hash to "remember" when a specific letter is found
+    
+    Next we iterate through s again
+     increment the size for each character that is found
+     update the end of the partition's size if applicable
+     check if the end is where  the current index is
+        if it is, push the current size into the res array
+        reset the size back to 0 for the next partition
+        
+    return res in the end
+*/
 var partitionLabels = function(s) {
-    // use a hash map to keep track of where the last occurance of each letter is 
+    // last hash is to store  the 
     let lastHash = {};
-    // iterate through s and update the last occurance
+    // iterate through the string and update the last known position
     for(let i = 0; i < s.length; i++){
-        // if the letter has not been added to the hash
         if(!lastHash[s.charAt(i)]){
-            // update the first known occurance
             lastHash[s.charAt(i)] = i;
-        } else{
-            // otherwise upldate to the lastest occurance
+        } else {
             lastHash[s.charAt(i)] = i;
         }
     }
-    // now that we have a hash with all the last known occurances
-    // initialize a size variable to keep track of the size of the partitions and a res array to return the size of each partition
-    let size = 0, res = [], end = 0;
     
-    //now we iterate again and update the size and res variables
+    let size = 0, end = 0, res = [];
+    // iterate t
     for(let i = 0; i < s.length; i++){
-        // increment the size
+        // increment size first
         size += 1;
-        // update the end index with the furthest index found within partion
+        // check where the end of this partition is at the current letter
+        // this is a flag will be set to end the partition
         end = Math.max(end, lastHash[s.charAt(i)]);
-        // if the current i is the same as the end
+        // if i has reached the end of the current partition
         if(i === end){
-            // update res with the length of the partiation
-            res.push(size);
-            // reset size
+            // push the size of the partition
+            res.push(size)
+            // reset size to 0
             size = 0;
         }
     }
-    // return res at the end
     return res;
 };
