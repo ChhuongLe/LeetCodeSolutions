@@ -5,7 +5,7 @@
 // check the letters at the start and compare it to the end of the string
     // if a discrepency is found, check at a different position and see if a deletion is possible
     // if a deletion is possible, then return true
-    // if more than ine deletion is necessary, then return false
+    // if more than one deletion is necessary, then return false
 
 const checkPalindrome = (s, i, j) => {
     while(i < j) {
