@@ -1,6 +1,6 @@
 
 var UndergroundSystem = function() {
-    this.arrival = new Map();
+    this.arrivals = new Map();
     this.avgs = new Map();
 };
 
@@ -10,42 +10,40 @@ var UndergroundSystem = function() {
  * @param {number} t
  * @return {void}
  */
+
+// takes a unique customer ID, stationName, and the time they arrived 
 UndergroundSystem.prototype.checkIn = function(id, stationName, t) {
-    // first set the unique id key with its corresponsding time and station name
-    this.arrival.set(id, [stationName, t]);
+    // id: [stationName, t] 
+    this.arrivals.set(id, [stationName, t]);
 };
 
 /** 
  * @param {number} id 
  * @param {string} stationName 
  * @param {number} t
-* @return {void}N
+ * @return {void}
  */
+
+// takes a unique ID, stationName, and the time they checked out of the station
+// find the start station and store it into to referencable variables
+
 UndergroundSystem.prototype.checkOut = function(id, stationName, t) {
-    // find the id and get the starting station and the time they arrived
-    const [startStation, time] = this.arrival.get(id);
-    // create a unique key using the startStation and the current stationName
-    const key = [startStation, stationName].join(",");
-    // now check if the avgs map has the key
+    const [startStation, time] = this.arrivals.get(id);
+    
+    // find the difference of time between end station and start station
+    let diff = t - time;
+    
+    let key = [startStation, stationName].join(',');
+    // check if avgs map contains the unique key 
     if(this.avgs.has(key)){
-        // update the count and total
-        let [total, count] = this.avgs.get(key);
-        // calculate the current time that it took for this particular customer to arrive to this station
-        let diff = t - time;
-        // increase the count by one person
-        count += 1;
-        // update the total
-        total = total + diff;
-        // update the avgs map
-        this.avgs.set(key, [total,count]);
+        // update the totalTime and numPeople if the map already contains the key
+        let [totalTime, numPeople] = this.avgs.get(key);
+        totalTime += diff;
+        numPeople++;
+        this.avgs.set(key, [totalTime, numPeople]);
     } else {
-        //otherwise, create a new key and value
-        let diff = t - time;
-        this.avgs.set(key,[diff, 1]);
-        
-    } 
-    // remove the customer id from the arrivals map as they've already checkout of the system
-    this.arrival.delete(id);
+        this.avgs.set(key, [diff, 1]);
+    }
 };
 
 /** 
@@ -54,11 +52,11 @@ UndergroundSystem.prototype.checkOut = function(id, stationName, t) {
  * @return {number}
  */
 UndergroundSystem.prototype.getAverageTime = function(startStation, endStation) {
-    // calculate the average by finding the key from startStation and endStation
-    let key = [startStation, endStation].join(",");
+    let key = [startStation, endStation].join(',');
+    
     if(this.avgs.has(key)){
-        const [total, count] = this.avgs.get(key);
-        return total/count;
+        const [totalTime, numPeople] = this.avgs.get(key);
+        return totalTime/numPeople;
     }
 };
 
