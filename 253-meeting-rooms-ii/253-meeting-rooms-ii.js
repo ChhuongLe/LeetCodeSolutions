@@ -27,7 +27,7 @@ var minMeetingRooms = function(intervals) {
             // remove the first element from the queue if a finished meeting is found
             queue.shift();
         }
-        // push the current time into the queue
+        // push the current end time into the queue
         queue.push(curr[1]);
         // sort the queue by the ending times
         queue.sort((a,b) => a-b);
