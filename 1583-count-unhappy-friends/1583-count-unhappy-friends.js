@@ -14,6 +14,10 @@
     Algorithm: 
         1. create a ranking of friends
             1a. based off the current pairs
+        2. traverse through each person
+        3. check if the current friend prefers their pair over the others
+        4. If they prefer others over their current pair, update the unhappy counter
+        5. return the number of unhappy friends
 */
 var unhappyFriends = function(n, preferences, pairs) {
     // initialize the rankings array
