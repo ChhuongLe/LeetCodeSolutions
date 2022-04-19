@@ -2,9 +2,9 @@
  * @param {number} n
  */
 var OrderedStream = function(n) {
-    // initialize a list
-    this.list = new Array(n);
-    // initialize a pointer that starts at element 0
+    // initialize an array of size n
+    this.stream = new Array(n);
+    // initialize a ptr variable to keep track of where we are 
     this.ptr = 0;
 };
 
@@ -14,22 +14,23 @@ var OrderedStream = function(n) {
  * @return {string[]}
  */
 
-// needs to be able to update the list 
-// also requried to return the elements at the current step 
-    // (i.e. in the example step 1 should return the array at 0)
+// function: 
+    /*
+        algorithm: 
+            1. insert the value into the idKey indicated 
+            2. return the largest chunk of the the currently inserted values 
+    */
 OrderedStream.prototype.insert = function(idKey, value) {
-    // take the idKey and subtract 1 from to line it up with the 0 indexing of arrays
-    this.list[idKey-1] = value;
+    // insert the value into the idKey
+    this.stream[idKey-1] = value;
     
-    // initialize the resulting array
-    let result = []; 
-    // while p still has values, push the values into the result array and move the pointer forward
-    while(this.list[this.ptr]){
-        result.push(this.list[this.ptr]);
+    // return the largest possible chunck
+    let res = [];
+    while(this.stream[this.ptr]) {
+        res.push(this.stream[this.ptr]);
         this.ptr++;
     }
-    // return the resulting array
-    return result;
+    return res;
 };
 
 /** 
