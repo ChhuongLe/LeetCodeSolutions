@@ -10,24 +10,34 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-var inorderTraversal = function(root) {
-    // initialize an array for the integers to be stored into
-    let res = [];
-    // helper function for the traversal
-    const traverse = (node) => {
-        // if the node is null, return 
-        if (node === null){
-            return;
-        }
-        // otherwise, search all the way left
-        traverse(node.left);
-        // add integer into the array
-        res.push(node.val);
-        // search right
-        traverse(node.right);
-    }
-    // return the array at the end of the traversal
+
+/*
+    inorder traversal: 
+        1. check left
+        2. then root
+        3. then right 
     
+    algorithm: recursive
+        1. perform an inorder traversal
+*/
+
+
+var inorderTraversal = function(root) {
+    let res = [];
+    // create the traversal path
+    const traverse = (node) => {
+    if(!node) {
+        return;
+    }
+    // check left
+    traverse(node.left);
+    // store the values when the end is hit
+    res.push(node.val);
+    // traverse right
+    traverse(node.right);
+};
+    // begin the traversal at the root
     traverse(root);
+    // return res
     return res;
 };
