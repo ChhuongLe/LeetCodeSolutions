@@ -2,27 +2,43 @@
  * @param {number[][]} graph
  * @return {number[][]}
  */
+
+/*
+    IOCE: 
+        Input: directed acyclic graph
+        output: paths from 0 to n-1 
+        constraints: n will always have something inside of it
+        edge cases: none to consider
+*/ 
+/*
+    Algorithm:
+        1. perform a DFS
+            1a. DFS will traverse through the map
+            1b. If the end is found, then a path is found
+            1c. Add this path to an array
+            1d. Backtrack and find new unique paths
+        2. return the final result of all the paths
+*/
 var allPathsSourceTarget = function(graph) {
-    // initialize a result array to return
-    let res = [];
-    // initialize a queue with starting point at 0
-    let queue =[[0]];
-    // iterate through the graph and valid paths 
-    while(queue.length > 0) {
-        // pop the first element from the queue and store it into curr
-        let curr = queue.shift();
-        // store the last element in curr to be used to compare if the result has been achieved
-        let last = curr[curr.length-1];
-        // check if the goal has been achieved 
-        if (last === graph.length-1) {
-            res.push(curr);
-            continue;
+    // initialize a variable
+    let end = graph.length-1;
+    // initialize an array to store the paths
+    let paths = [];
+    // start the DFS
+    const DFS = (node, path)=>{
+        path.push(node);
+        if(node === end) {
+            paths.push(path);
+            // a path has been found, return
+            return;
         }
-        // otherwise continue the search
-        for(let i = 0; i < graph[last].length; i++) {
-            let newArr = new Array(...curr, graph[last][i]);
-            queue.push(newArr);
+        // back track and search for a new unique path
+        for (let edge of graph[node]) {
+            DFS(edge, [... path]);
         }
     }
-    return res;
+    // perform the DFS starting at node 0 and an empty array
+    DFS(0, []);
+    // return path
+    return paths;
 };
