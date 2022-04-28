@@ -12,49 +12,47 @@
  * @param {Node} head
  * @return {Node}
  */
+
+/*
+    Algorithm: 
+        1. initialize a new doubly linked list to return, a stack to populate, and a prev pointer to remember the predecesor of the current node
+        2. populate the stack with the first value in the list
+        3. traverse the list until the stack is empty
+            3a. at each step of the traversal, pop the first node and label it curr from the stack
+            3b. establish connections between prev and curr
+            3c. search for curr.next and children if applicable
+                3ca. if curr.next does exsist, push node into stack for the next iteration
+                3cb. if curr.child exists then push node into stack and add to the list
+                    3cba. clean this pointer as it should not be present in the flattend list (set it to null)
+        4. return the newly flattened doubly linked list
+    
+*/
 var flatten = function(head) {
-    // if head does not have a value
-    if(!head){
-        // return null
+    if(!head) {
         return null;
     }
-    // make a new doubly linked list
-    let dummyHead = new Node(0, null, head, 0);
     
-    // use a stack for ease of reference
+    let dummy = new Node(0, null, head, 0);
     let stack = [head];
-    // set curr to the dummyHead 
-    let curr = dummyHead;
-    // initialize a prev pointer 
+    let curr = dummy;
     let prev = null;
     
-    // while the stack is not empty, iterate through
-    while(stack.length != 0){
-        // find the first value of the stack and assign it to the curr pointer
+    while(stack.length !== 0) {
         curr = stack.pop();
         
-        // check if prev was assigned a value
-        if(prev){
-            // set curr's prev to prev
+        if(prev) {
             curr.prev = prev;
-            // set prev's next to curr
             prev.next = curr;
         }
-        // if next exsists
-        if(curr.next !== null){
-            // push it to the stack
+        
+        if(curr.next !== null) {
             stack.push(curr.next);
         }
-        // if a child exsists
-        if(curr.child !== null){
-            // push it to the stack
+        if(curr.child !== null) {
             stack.push(curr.child);
-            // remove the child reference 
             curr.child = null;
         }
-        // assign prev curr to "remember" it
         prev = curr;
     }
-    // return the list
-    return dummyHead.next;
+    return dummy.next;
 };
