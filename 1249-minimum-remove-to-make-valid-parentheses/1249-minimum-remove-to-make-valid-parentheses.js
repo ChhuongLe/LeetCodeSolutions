@@ -22,7 +22,7 @@
 */
 var minRemoveToMakeValid = function(s) {
     // split the array up into elements
-    s = s.split('')
+    s = s.split('');
     let stack = [];
     // iterate through
     for (let i in s){
