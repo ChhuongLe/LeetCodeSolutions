@@ -2,53 +2,42 @@
  * @param {string} s
  * @return {string}
  */
+
 /*
-    IOCE:
-        input: s - string 
-        output: res - string
-        constraints: s will always have some character value in it
-                     s will always be either '(' or ')' or any lowercase english character
-                     
-                     
-        edge cases: none to consider
-*/
-/*
-    Algorithm: 
-        split the array 
-        search for a left paren
-            if a right paren is found first, pop it 
-            if a left paren is found, keep it in the stack until a right paren is found
-        if a right paren is not found with the left paren, pop it out of the stack
+    Algorithm:
+        1. initialize an array that will store the indexes to be removed
+        2. traverse throught the string
+            2a. if a '(' is found, update the stack 
+            2b. if a corresponding ')' is found, pop the index that corresponds with the '('
+        3. otherwise, update the removeIndex array if a floating ')' is found 
+        4. add all the hanging '(' indexes into the remove index array
+        5. Remove the indexes 
+        6. Return the final string
 */
 var minRemoveToMakeValid = function(s) {
-    // split the array up into elements
-    s = s.split('');
-    let stack = [];
-    // iterate through
-    for (let i in s){
-        // if the current index at s is '('
-        if(s[i] === '('){
-            // push it into the stack
+    let stack = [], removeIndexes = new Set(), res = '';
+    
+    for(let i in s) {
+        if(stack.length === 0 && s[i] === ')') {
+            removeIndexes.add(i);
+        } else if (s[i] === '(') {
             stack.push(i);
-            // if its ')'
-        } else if(s[i] === ')'){
-            // check if the stack is empty
-            if (stack.length === 0){
-                // if it is, then this is not valid and we make it a ""
-                s[i] = "";
-            } else {
-                // otherwise pop the index out since it is valid
-                stack.pop();
-            }
+        } else if (i !== 0 && s[i] === ')') {
+            stack.pop();
+        } 
+    }
+    
+    if (stack.length !== 0) {
+        for(let el of stack) {
+            removeIndexes.add(el);
         }
     }
     
-    // if there are extra '(' we remove it here using the stored indexes in the stack
-    for(let i of stack){
-        console.log(i);
-        s[i] = "";
+    for(let i = 0; i < s.length; i++) {
+        if(removeIndexes.has(i+'')) {
+            continue;
+        }
+        res+=s[i];
     }
-
-    // return the string joined 
-    return s.join('');
+    return res;
 };
