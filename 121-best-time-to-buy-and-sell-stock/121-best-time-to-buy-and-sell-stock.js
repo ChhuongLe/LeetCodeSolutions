@@ -14,7 +14,7 @@
         5. Return max profit
 */
 var maxProfit = function(prices) {
-    let maxProfit = 0, minStock = Infinity;
+    let maxProfit = 0, minStock = Number.MAX_SAFE_INTEGER;
     for(let price of prices) {
         if(minStock > price) {
             minStock = price;
