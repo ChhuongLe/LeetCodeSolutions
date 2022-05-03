@@ -4,28 +4,22 @@
  */
 
 /*
-    conditions: you must buy the stock first before selling
-    
     algorithm:
-        1. initialize a min and max variable to indicate the largest peak and smallest valley
-        2. initialize a max profit variable to calculate the most money that could be made
-        3. travese through the array
-            3a. compare the current price to the min
-                3aa. if the current price is less than the min, store it
-            3b. otherwise, check the difference of the price and compare it to the currnet max profit
-                3ba. if the max profit is found to be lower than that of the current difference, update the max profit variable
-        4. return the max profit
+        1. initialize a maxProfit and minStock variable
+        2. traverse through the prices array
+        3. compare the minStock to the current price and also check if the index is the first value
+            3a. if the value is smaller, update minStock
+        4. check if the maxProfit is les than the current price and minStock difference
+            4a. if it is, update maxProfit
+        5. Return max profit
 */
 var maxProfit = function(prices) {
-    // we make min a very large number so that its easily comparable
-    let minPrice = Infinity, maxProfit = 0;
-    
+    let maxProfit = 0, minStock = Infinity;
     for(let price of prices) {
-        if(price < minPrice) {
-            minPrice = price;
-        } else if (price - minPrice > maxProfit) {
-            maxProfit = price - minPrice;
-        }
+        if(minStock > price) {
+            minStock = price;
+        } 
+        maxProfit = Math.max(maxProfit, price - minStock);
     }
     return maxProfit;
 };
