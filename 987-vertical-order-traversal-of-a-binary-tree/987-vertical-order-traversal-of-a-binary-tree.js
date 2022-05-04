@@ -53,7 +53,6 @@ const verticalTraversal = (root) => {
     // console.log(nodeInfo);
     
     // sort the nodeInfo array into buckets
-    
     let map = new Map();
     
     for(let [x, y, val] of treeInfo) {
