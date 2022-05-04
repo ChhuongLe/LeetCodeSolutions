@@ -29,11 +29,14 @@
         6. return the map values of buckets
 */
 
+// time complexity: O(n) + O(nlogn) + O(n) + O(n) = O(n) + O(nlogn) = O(nlogn)
 
 const verticalTraversal = (root) => {
     let treeInfo = [];
     
     // inOrder traversal and add coordinates/values into nodeInfo arr
+    // time complexity: n - number of nodes in the tree 
+    // will take O(n) time to traverse through all the nodes
     const appendNodeInfo = (node, x, y) => {
         if(node) {
             //traverse left
@@ -46,21 +49,20 @@ const verticalTraversal = (root) => {
     };
     
     appendNodeInfo(root, 0, 0, treeInfo);
-    // console.log(nodeInfo);
-    
     // sort the according to the conditions above
+    // javascript uses merge sort time complexity O(nlogn)
     treeInfo.sort((a,b) => a[0]-b[0] || b[1]-a[1] || a[2]-b[2]);
-    // console.log(nodeInfo);
-    
     // sort the nodeInfo array into buckets
     let map = new Map();
-    
+    // traverse through every element in the treeInfo array
+    // time complexity: O(n)
     for(let [x, y, val] of treeInfo) {
         if(!map.has(x)){
             map.set(x, []);
         }
         map.get(x).push(val);
     }
-    // console.log([...map.values()]);
+    // traverse through all the values in the map and store them into an array
+    // time complexity: O(n)
     return [...map.values()];
 };
