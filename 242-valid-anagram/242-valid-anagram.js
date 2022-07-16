@@ -5,35 +5,19 @@
  */
 
 /*
-    Algorithm: 
-        1. set up a hash for s
-        2. traverse through s 
-            2a. store the character as a key and the number of times it appears as the value
-        3. traverse through t
-            3a. check if the character of t exsists in s
-            3b. if it does, decrement the value
-            3c. if it does not, then return false as the letter does not exsist in s and therefore is not an anagram
+    Example:
+        s = "car", t = "rac"
+        
+        car and rac have the same letters present so return true
+        
+    Algo:
+        traverse through s, update the hash with
 */
 var isAnagram = function(s, t) {
-    if(t.length !== s.length) {
-        return false;
+    s = s.split('').sort().join('');
+    t= t.split('').sort().join('');
+    if(s === t) {
+        return true;
     }
-    let sHash = {};
-    for(let char of s){
-        if(sHash[char]){
-            sHash[char]++;
-        } else {
-            sHash[char] = 1;
-        }
-    }
-    for(let char of t) {
-        if(!sHash[char]) {
-            return false;
-        }
-        sHash[char]--;
-        if(sHash[char] === 0) {
-            delete sHash[char];
-        }
-    }
-    return [... Object.keys(sHash)].length === 0;
+    return false;
 };
