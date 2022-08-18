@@ -11,15 +11,12 @@
  * @return {number}
  */
 var maxDepth = function(root) {
-    // perform a bfs and find the max depth
-    if (root === null || root === undefined) {
-       return 0;
-    } 
-    // search all of the left side
+    if(!root) return 0;
+    
+    // recurse 
     let l = maxDepth(root.left);
-    // search all of the right side
     let r = maxDepth(root.right);
     
-    // return the max 
-    return Math.max(l,r)+1;
+    // return the max depth
+    return Math.max(l,r) + 1;
 };
