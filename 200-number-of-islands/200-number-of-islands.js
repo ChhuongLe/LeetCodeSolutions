@@ -3,41 +3,49 @@
  * @return {number}
  */
 
-// perform a dfs on all adjacent children
-const DFS = (grid, r, c) => {
-    // check if out of range or if it is a body of water
-    if(r >= grid.length || r < 0 || c >= grid[0].length || c < 0 || grid[r][c] === "0") {
+/*
+    can use DFS search for the 1's
+    
+    traverse through the matrix to find a 1
+    perform a DFS starting from this 1 (flip to 0)
+    when other 1's are found that are connected, flip to 0
+    when no more 1's are found, increment the number of islands 
+    
+    continue through the matrix to find the other islands
+    
+    return the final number of islands found
+*/
+
+const dfs = (grid,r,c) => {
+    // constraints
+    if(r >= grid.length || c >= grid[0].length || r < 0 || c < 0 || grid[r][c] === '0') {
         return;
     }
     
-    // flip the visited island to 0 to indicate that it has been found already
     grid[r][c] = "0";
     
-    // perform the dfs vertically and horizontally
-    // above
-    DFS(grid, r-1, c);
-    // below
-    DFS(grid, r+1, c);
-    // right
-    DFS(grid, r, c+1);
-    // left
-    DFS(grid, r, c-1);
-}
+    // perform the DFS
+    dfs(grid, r+1, c);
+    dfs(grid, r-1, c);
+    dfs(grid, r, c+1);
+    dfs(grid, r, c-1);
+};
 
-// use this function to iterate through the matrix
 var numIslands = function(grid) {
-    // iterate through the matrix 
+    // initialize variables for column and row lengths
     const c = grid[0].length, r = grid.length;
-    // variable to keep track of number of islands
     let numIslands = 0;
     
-    for(let i = 0; i < r; i++){
+    // traverse through the matrix
+    for (let i = 0; i < r; i++) {
         for (let j = 0; j < c; j++){
-            if(grid[i][j] === "1"){
+            // if a 1 is found, perform a DFS
+            if(grid[i][j] === '1'){
                 numIslands++;
-                DFS(grid, i, j);
+                dfs(grid, i, j)
             }
         }
     }
+    // return the final number of islands
     return numIslands;
 };
