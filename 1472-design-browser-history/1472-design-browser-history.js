@@ -1,26 +1,21 @@
 /**
  * @param {string} homepage
  */
-
 var BrowserHistory = function(homepage) {
-    this.page = {
-        url: homepage,
-        next: null,
-        back: null
-    };
+    this.backArr = [homepage];
+    this.forwardArr = [];
 };
 
 /** 
  * @param {string} url
  * @return {void}
  */
+
+ // add to back array 
+ // resets forward array
 BrowserHistory.prototype.visit = function(url) {
-    this.page.next= {
-        url: url,
-        next: null,
-        back: this.page
-    };
-    this.page = this.page.next;
+    this.backArr.push(url);
+    this.forwardArr = [];
 };
 
 /** 
@@ -28,12 +23,14 @@ BrowserHistory.prototype.visit = function(url) {
  * @return {string}
  */
 
+ // traverse number of `steps` until either steps is 0 or back.length is 0
+ // return the element
 BrowserHistory.prototype.back = function(steps) {
-    while(steps !== 0 && this.page.back) {
-        this.page = this.page.back;
+    while (steps && this.backArr.length > 1) {
+        this.forwardArr.push(this.backArr.pop());
         steps--;
     }
-    return this.page.url;
+    return this.backArr[this.backArr.length - 1];
 };
 
 /** 
@@ -41,11 +38,11 @@ BrowserHistory.prototype.back = function(steps) {
  * @return {string}
  */
 BrowserHistory.prototype.forward = function(steps) {
-    while(steps !== 0 && this.page.next) {
-        this.page = this.page.next;
+    while(steps && this.forwardArr.length) {
+        this.backArr.push(this.forwardArr.pop());
         steps--;
     }
-    return this.page.url;
+    return this.backArr[this.backArr.length - 1]
 };
 
 /** 
