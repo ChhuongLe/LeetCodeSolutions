@@ -1,65 +1,62 @@
 /**
-
  * @param {string[]} transactions
  * @return {string[]}
  */
 
-/*
-    conditions for invaild transactions:
-        1. amount of the transaction exceeds 1000
-        2. transaction occurs within 60 mins 
-        
-    algorithm:
-        1. traverse through the transactions array
-        2. seperate the categories 
-        3. check if the person exsists in the map
-            3a. if they do, push the city and time into the hash
-            3b. if not, then create a new object for them in the hash
-        4. check if the transaction is valid
-            4a. if it is not, push the invalid transaction(s) into the invalid array
-        5. return the final array of invalid transactions
-*/
-const isInvalid = (hash, t) => {
-    let [name, time, amount, city] = t.split(',');
-    // condition 1: if amount if greatrer than 1000, return true
+ /*
+    Conditions for invalid transations:
+    1. If amount spent is > $1000
+    2. If transation occurs within 60 minutes with the same name in a DIFFERENT city
+
+    Algorithm: Using a hash map
+        1. Traverse through the array
+            1a. Split the array into categories: [name, time, spent, location]
+        2. begin adding to the hash the list of transactions with the key being the person's name
+            2a. example: {alice: [{time: 20, location: mtv}, {time: 50, location: beijing}]}
+        3. check if the transaction is invalid
+        4. return the invalid array
+
+    isInvalid function:
+        1. Traverse through the hash
+        2. check for the above invalid conditions
+            2a. if they are met, add the transaction into the invalid array
+ */
+const isInvalid = (transaction, hash) => {
+    let [name, time, amount, location] = transaction.split(',');
+
+    // condition 1: spent over 1000
     if(amount > 1000) {
         return true;
-    } 
-    // condition 2: if transaction was made in a different city as the same person within 60 minutes, return true
-    let checkTrans = hash[name];
-    // check the transactions within the hash
-    for(let t of checkTrans){
-        // if condition 2 is met
-        if(city !== t.city && Math.abs(time - t.time) <= 60){
-            // return true
-            return true;
-        }
     }
-    // otherwise return false
+    
+    // condition 2: transaction occured within 60 minutes of each other in a DIFFERENT city
+    let otherTransactions = hash[name];
+    for(const t of otherTransactions) {
+        if(location !== t.location && 60 >= Math.abs(time - t.time)) {
+            return true;
+        } 
+    }
     return false;
 }
 
 var invalidTransactions = function(transactions) {
-    // initialize a hash
-    let hash = {};
-    // initialize an array to store the invalid transactions
-    let invalid = [];
-    // traverse through the array
-    for(let t of transactions) {
-        let [name, time, amount, city] = t.split(',');
-        // check if the name exsists in the hash
-        if(name in hash) {
-            hash[name].push({time, city});
-        } else {
-            hash[name] = [{time, city}];
-        }
-    }
-    // now we check if the transaction is invalid and update the invalid array
-    for(let t of transactions){
-        if(isInvalid(hash, t)) {
+    // initialize the hash map invalid array to return
+    let transactionHash = {}, invalid = [];
+
+    // traverse through the transations
+    for(const t of transactions) {
+        let [name, time, spent, location] = t.split(',');
+
+        // add to transactionHash
+        if(transactionHash[name]) transactionHash[name].push({time, location});
+        else transactionHash[name] = [{time, location}];
+    } 
+
+    //after populating the hash, traverse through the hash and check if there are invalid transactions
+    for (const t of transactions) {
+        if(isInvalid(t, transactionHash)) {
             invalid.push(t);
         }
     }
-    // return invalid
     return invalid;
-};
+}; 
