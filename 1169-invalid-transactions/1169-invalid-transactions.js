@@ -52,7 +52,7 @@ var invalidTransactions = function(transactions) {
         else transactionHash[name] = [{time, location}];
     } 
 
-    //after populating the hash, traverse through the hash and check if there are invalid transactions
+    //after populating the hash, traverse through the transaction array and check for invalid transactions by using the hash we created
     for (const t of transactions) {
         if(isInvalid(t, transactionHash)) {
             invalid.push(t);
