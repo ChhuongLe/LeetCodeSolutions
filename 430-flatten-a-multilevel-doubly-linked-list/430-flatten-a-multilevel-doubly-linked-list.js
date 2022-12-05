@@ -27,32 +27,47 @@
         4. return the newly flattened doubly linked list
     
 */
-var flatten = function(head) {
-    if(!head) {
-        return null;
-    }
-    
-    let dummy = new Node(0, null, head, 0);
-    let stack = [head];
-    let curr = dummy;
-    let prev = null;
-    
-    while(stack.length !== 0) {
-        curr = stack.pop();
-        
-        if(prev) {
-            curr.prev = prev;
-            prev.next = curr;
-        }
-        
-        if(curr.next !== null) {
-            stack.push(curr.next);
-        }
-        if(curr.child !== null) {
-            stack.push(curr.child);
+/**
+ * // Definition for a Node.
+ * function Node(val,prev,next,child) {
+ *    this.val = val;
+ *    this.prev = prev;
+ *    this.next = next;
+ *    this.child = child;
+ * };
+ */
+
+/**
+ * @param {Node} head
+ * @return {Node}
+ */
+
+/* stack method: store children if exsist
+    1. traverse through doubly linked list while pointer has not hit null
+    2. start at head of linked list
+        2a. if a child exists, check if there exists a next. If there is, store the value into the stack for reference 
+        2b. add the children to the curr pointer
+        2c. once the child has been assigned, mark it as null
+    3. check for the next value or if stack is not empty
+        3a. add to the stack
+    4. continue iteration
+    5. return the final 
+*/
+
+const flatten = (head) => {
+    let curr = head, stack = [];
+
+    while(curr) {
+        if(curr.child) {
+            if(curr.next) stack.push(curr.next);
+            curr.next = curr.child;
+            curr.next.prev = curr;
             curr.child = null;
+        } else if (!curr.next && stack.length !== 0) {
+            curr.next = stack.pop();
+            curr.next.prev = curr;
         }
-        prev = curr;
+        curr = curr.next;
     }
-    return dummy.next;
-};
+    return head;
+}
