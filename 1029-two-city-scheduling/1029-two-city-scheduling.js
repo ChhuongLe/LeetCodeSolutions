@@ -3,23 +3,33 @@
  * @return {number}
  */
 
-// Requirements: 
-    // 2n people for each city
-    // must have at least n people per city meaning not everyone can go to city A for example
-// in this case a greedy approach can be preformed: 
-    // when a problem asks for minimum for something, we can assume a greedy approach
+ /*
+    Need to have 2n people flying to city a and city b
+
+    IOCE: 
+        Input - costs array
+        Output - total cost to send people out to ciies A and B
+        Constraints - costs.length will always be even
+                      prices will always be positive
+        edge cases: none
+
+    Steps:
+        1. Sort the costs according to cost differences
+            1a. [[10,20], [30,200], [400,50], [30,20]] 
+                [[30,200], [10,20], [30,20], [400,50]] sorted according to costs
+        2. traverse through half the array and add the costs for city A
+            2a. while doing this, add the other half as the cost for city B
+        4. return total cost
+ */
 var twoCitySchedCost = function(costs) {
-    // sort the array according to ascending order
-    let sorted = costs.sort((a,b) => a[0]-a[1]-(b[0]-b[1]));
-    // initialize a variable to return 
-    let cost = 0;
-    // to optimize costs, send first half to city A and the rest to city B
-    // n is half the length of the array length
-    let n = (sorted.length)/2;
-    for(let i = 0; i < n; i++){
-        // add the first half to the second half and that will be the total cost
-        cost += sorted[i][0]+sorted[i+n][1];
+    // sort the costs according to price difference 
+    costs.sort((a,b)=>((a[0]-a[1]) -(b[0]-b[1])))
+
+    let total = 0, length = costs.length/2;
+    // traverse through the sorted costs array and add the halves
+    for(let i = 0; i < length; i++) {
+        total += costs[i][0] + costs[i+length][1];
     }
-    // return the cost
-    return cost;
+
+    return total;
 };
