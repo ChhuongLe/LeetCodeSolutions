@@ -61,7 +61,7 @@
 //     return killedProcesses;
 // };
 
-/*----- Using an object is much faster as it has constant time look up and not traversals */
+/*----- Using an object is much faster as it has constant time look up and no traversals ------*/
 const killProcess = function(pid, ppid, kill){
 	// Create Graph: Parent-Map
     const parentMap = {}, output = [];;
