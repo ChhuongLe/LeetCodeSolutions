@@ -1,6 +1,5 @@
-
 var Leaderboard = function() {
-     this.board = new Map();
+    this.board = new Map();
 };
 
 /** 
@@ -9,35 +8,32 @@ var Leaderboard = function() {
  * @return {void}
  */
 
-// add or update a score
+ // add score if player exsists, otherwise make a new key value pair for this player
+ // if the playerId does not exsist, make a new addition to the board
 Leaderboard.prototype.addScore = function(playerId, score) {
-    // update the score of the player
     if(this.board.has(playerId)) {
-        // calculate the new score
+        // add the score to the old score and update the leaderboard
         let newScore = score + this.board.get(playerId);
-        // update the score
         this.board.set(playerId, newScore);
-    } else {
-        // add a new player
-        this.board.set(playerId, score);
-    }
+    } else this.board.set(playerId, score);
+    console.log(this.board);
 };
 
 /** 
  * @param {number} K
  * @return {number}
  */
-// prints the top k scores
-// sort the scores by highest first
-// add the k highest scores and return
+
+ // return the sum of scores of the top K players
 Leaderboard.prototype.top = function(K) {
-    let scores = Array.from(this.board.values()).sort((a,b)=> b-a);
-    
-    let sum = 0; 
-    
+    // make an array that is in descending using the board map
+    let scores = Array.from(this.board.values()).sort((a,b) => b-a);
+    let sum = 0;
+    // traverse K elements and add to sum
     for(let i = 0; i < K; i++) {
         sum += scores[i];
     }
+    // return the final result
     return sum;
 };
 
@@ -45,14 +41,15 @@ Leaderboard.prototype.top = function(K) {
  * @param {number} playerId
  * @return {void}
  */
-// removes the playerId and score
+
+ // remove the score of the player from the leaderboard
 Leaderboard.prototype.reset = function(playerId) {
-    this.board.delete(playerId)
+    this.board.delete(playerId);
 };
 
 /** 
  * Your Leaderboard object will be instantiated and called as such:
- * var obj = new Leaderboard()
+ * var obj =   Leaderboard()
  * obj.addScore(playerId,score)
  * var param_2 = obj.top(K)
  * obj.reset(playerId)
