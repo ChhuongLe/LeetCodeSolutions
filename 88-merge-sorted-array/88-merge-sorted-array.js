@@ -1,33 +1,3 @@
-
-Accepted
-Jan 20, 2022
-JavaScript
-Console
-
-Run
-Submit
-Close
-Chhuong Le
-Chhuong Le
-Dec 12, 2022 11:40
-
-Details
-Solution
-JavaScript
-Runtime
-65 ms
-Beats
-90.80%
-Memory
-42.4 MB
-Beats
-30.14%
-Click to check the distribution chart
-Notes
-Write your notes here
-Related Tags
-Select tags
-0/5
 /**
  * @param {number[]} nums1
  * @param {number} m
