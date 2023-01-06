@@ -54,20 +54,33 @@
     5. return the final 
 */
 
-const flatten = (head) => {
-    let curr = head, stack = [];
+var flatten = function(head) {
+    // check if the linked list is empty
+    if (!head) return head;
 
+    let curr = head, stack = [];
     while(curr) {
+        // a child exists
         if(curr.child) {
-            if(curr.next) stack.push(curr.next);
+            // save the current's next position as a reference to come back to if it exists
+            if(curr.next) stack.push(curr.next)
+            // set the curr pointer's next to be the child
             curr.next = curr.child;
+            // set the next's prev pointer to be curr
             curr.next.prev = curr;
-            curr.child = null;
-        } else if (!curr.next && stack.length !== 0) {
+            // assigned to next so the child is nullified
+            curr.child = null; 
+        } 
+        // otherwise, curr.next === null, and the stack is not empty
+        else if(!curr.next && stack.length!==0) {
+            // go back to the latest referenced point
             curr.next = stack.pop();
+            // set the prev pointer to be curr
             curr.next.prev = curr;
         }
+        // otherwise, continue down the linked list
         curr = curr.next;
     }
+    // return the reference to head
     return head;
-}
+};
