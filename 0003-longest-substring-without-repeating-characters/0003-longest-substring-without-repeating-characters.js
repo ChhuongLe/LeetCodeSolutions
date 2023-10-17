@@ -6,6 +6,7 @@ var lengthOfLongestSubstring = function(s) {
     // initialize a window size
     let l = 0;
     let set = new Set();
+    // initialize a max return variable
     let max = 0;
 
     for(let r= 0; r < s.length; r++) {
