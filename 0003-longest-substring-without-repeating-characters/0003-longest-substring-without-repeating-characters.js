@@ -3,30 +3,23 @@
  * @return {number}
  */
 var lengthOfLongestSubstring = function(s) {
-    if(s.length === 1) return 1;
-    // initialize set to store only unique values starting with the first char
-    // also allows for constant time look up
-    let freq = new Set(s[0]);
-    // initialize window size of 1
-    let l = 0, r = 1;
-    let maxLength = 0;
+    // initialize a window size
+    let l = 0;
+    let set = new Set();
+    let max = 0;
 
-    while(r < s.length) {
-        // if set does not contain current character
-        if(!freq.has(s[r])) {
-            // add to the set
-            freq.add(s[r]);
-            // increase window size
-            r++
-            // update maxLength
-            maxLength = Math.max(maxLength, r-l);
-        } else {
-            // remove repeating character starting from the end
-            freq.delete(s[l]);
-            // slide window up one letter
-            l++
-            freq.add([s[r]]);
+    for(let r= 0; r < s.length; r++) {
+        // if the set has a repeated character
+        while(set.has(s[r])) {
+            // remove the repeated character from the set
+            set.delete(s[l]);
+            // increment the left pointer
+            l++;
         }
+        // otherwise add the next character to the set
+        set.add(s[r]);
+        // compare the current length to the last recorded max
+        max = Math.max(max, set.size);
     }
-    return maxLength;
+    return max;
 };
