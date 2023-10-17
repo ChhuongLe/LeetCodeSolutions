@@ -2,24 +2,22 @@
  * @param {number[]} prices
  * @return {number}
  */
-
-/*
-    algorithm:
-        1. initialize a maxProfit and minStock variable
-        2. traverse through the prices array
-        3. compare the minStock to the current price and also check if the index is the first value
-            3a. if the value is smaller, update minStock
-        4. check if the maxProfit is les than the current price and minStock difference
-            4a. if it is, update maxProfit
-        5. Return max profit
-*/
 var maxProfit = function(prices) {
-    let maxProfit = 0, minStock = Number.MAX_SAFE_INTEGER;
-    for(let price of prices) {
-        if(minStock > price) {
-            minStock = price;
-        } 
-        maxProfit = Math.max(maxProfit, price - minStock);
+    // initialize a window size of 1 
+    let maxProfit = 0, l = 0, r = 1;
+    // traverse through the array while right has not reached the end
+    while(r < prices.length) {
+        // only perform these operations if the left side is less than the right
+        if(prices[l] < prices[r]) {
+            // calculate the difference
+            let diff = prices[r] - prices[l];
+            // store the largest profit
+            maxProfit = Math.max(diff, maxProfit);
+        } else { // otherwise, move the left pointer and slide the window
+            l = r
+        }
+        // increment the right side
+        r++;
     }
     return maxProfit;
 };
