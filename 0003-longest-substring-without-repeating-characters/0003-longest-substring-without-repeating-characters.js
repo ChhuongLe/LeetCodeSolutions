@@ -2,46 +2,31 @@
  * @param {string} s
  * @return {number}
  */
-
- /*
-    IOCE:
-        input: s - string 
-        output: result - integer 
-        constraints: can be any form of digits, symbols, spaces
-        example: "abcdced"
-            longest non repearting substring is abcd so output 
-            would be 4
-            abcd - longest substring: 4
-            bcd
-            cd
-            ced
- */
 var lengthOfLongestSubstring = function(s) {
     if(s.length === 1) return 1;
-    // initialize hash to store frequency of characters
-    let frequency = new Set(s[0]);
-    // initiallize a variables that reference the start and end of the window
+    // initialize set to store only unique values starting with the first char
+    // also allows for constant time look up
+    let freq = new Set(s[0]);
+    // initialize window size of 1
     let l = 0, r = 1;
-    // return variable
-    let max = 0;
-    
-    // start the traversal while the right most side of the window is still within the string's length
-    while(r < s.length){
-        // if the set does not contain the current char
-        if(!frequency.has(s[r])) {
-            // add to set
-            frequency.add(s[r]);
-            // increase the window size
-            r++;
-            // compare the current max to the new max
-            max = Math.max(max, r - l);
+    let maxLength = 0;
+
+    while(r < s.length) {
+        // if set does not contain current character
+        if(!freq.has(s[r])) {
+            // add to the set
+            freq.add(s[r]);
+            // increase window size
+            r++
+            // update maxLength
+            maxLength = Math.max(maxLength, r-l);
         } else {
-            // set contains the current char, remove the repeating char
-            frequency.delete(s[l]);
-            // move the start of the sliding window up one element
-            l++;
-            frequency.add([s[r]]);
+            // remove repeating character starting from the end
+            freq.delete(s[l]);
+            // slide window up one letter
+            l++
+            freq.add([s[r]]);
         }
     }
-    return max;
+    return maxLength;
 };
