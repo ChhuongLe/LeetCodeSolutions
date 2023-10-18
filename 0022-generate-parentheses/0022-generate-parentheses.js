@@ -3,7 +3,7 @@
  * @return {string[]}
  */
 var generateParenthesis = function(n) {
-    const res = [];
+    let res = [];
 
     const dfs = (open, close, str) => {
         // if the string's length is 2 * n push it to the stack
