@@ -19,21 +19,18 @@
         
  */
 var dailyTemperatures = function(temperatures) {
-    // we know the output must be the same size as the temperatures array
-    let res = Array(temperatures.length).fill(0);
-    // traverse through the temperatures array
+    let stack = [], res = Array(temperatures.length).fill(0);
+    // start traversing through the array
     for(let i = 0; i < temperatures.length; i++) {
-        let currTemp = temperatures[i];
-        let count = 1;
-        for(let j = i+1; j < temperatures.length; j++) {
-            if(currTemp < temperatures[j]){
-                res[i] = count;
-                break;
-            } else {
-                res[i] = 0;
-            }
-            count++;
+        // while these conditions remain true
+        while(stack.length && temperatures[i] > temperatures[stack[stack.length-1]]) {
+            // save the index
+            let idx = stack.pop();
+            res[idx] = i - idx;
         }
+        // push to the stack
+        stack.push(i);
     }
+    // return the result
     return res;
 };
