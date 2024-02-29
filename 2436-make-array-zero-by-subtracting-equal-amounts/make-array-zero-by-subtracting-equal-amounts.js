@@ -35,6 +35,7 @@
 //     return steps;
 // };
 
+// greedy solution
 const minimumOperations = (nums) => {
     const set = new Set(nums);
 
