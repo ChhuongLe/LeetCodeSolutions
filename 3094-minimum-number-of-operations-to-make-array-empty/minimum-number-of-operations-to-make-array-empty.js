@@ -2,7 +2,7 @@
  * @param {number[]} nums
  * @return {number}
  */
-var minOperations = function(nums) {
+var minOperationsBruteForce = function(nums) {
     let hash = {};
     // traverse through the nums array
     for(let num of nums) {
@@ -29,3 +29,29 @@ var minOperations = function(nums) {
     }
     return steps;
 };
+
+const minOperations = (nums) => {
+    let map = new Map();
+
+    // count frequencies of each element
+    for(const num of nums) {
+        if(!map.has(num)) map.set(num, 1);
+        else map.set(num, map.get(num)+1);
+    } 
+
+    let res = Array.from(map.values());
+    let steps = 0;
+    for(const freq of res) {
+        // if there only 1 value of any number, return -1
+        if(freq === 1) return -1;
+
+        // calculate the number of operations of type 2
+        steps += Math.floor(freq/3);
+
+        // if 1 or 2 elements are left, perform type 1 operation
+        if(freq % 3 > 0) {
+            steps++;
+        }
+    }
+    return steps;
+}
